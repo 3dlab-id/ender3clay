@@ -1,0 +1,47 @@
+name: Build firmware
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build STM32F103RE_creality
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Marlin-2.1.2.1
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Cache PlatformIO
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.platformio
+            ~/.cache/pip
+          key: pio-${{ runner.os }}-${{ hashFiles('Marlin-2.1.2.1/platformio.ini', 'Marlin-2.1.2.1/ini/**') }}
+          restore-keys: pio-${{ runner.os }}-
+
+      - name: Install PlatformIO
+        run: pip install --upgrade platformio
+
+      - name: Build firmware
+        run: pio run -e STM32F103RE_creality
+
+      - name: Upload firmware artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware-STM32F103RE_creality
+          path: Marlin-2.1.2.1/.pio/build/STM32F103RE_creality/firmware-*.bin
+          if-no-files-found: error
