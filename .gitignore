@@ -1,0 +1,8 @@
+# Build artifacts (PlatformIO)
+.pio/
+Marlin-2.1.2.1/.pio/
+
+# OS / editor cruft
+.DS_Store
+*:Zone.Identifier
+*.Zone.Identifier
