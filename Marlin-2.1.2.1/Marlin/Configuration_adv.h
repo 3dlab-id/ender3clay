@@ -1357,7 +1357,8 @@
 // @section lcd
 
 #if HAS_MANUAL_MOVE_MENU
-  #define MANUAL_FEEDRATE { 50*60, 50*60, 4*60, 2*60 } // (mm/min) Feedrates for manual moves along X, Y, Z, E from panel
+  // CLAY: E raised 2->5 mm/s for priming the auger from Motion > Extruder. Back off if the auger stalls.
+  #define MANUAL_FEEDRATE { 50*60, 50*60, 4*60, 5*60 } // (mm/min) Feedrates for manual moves along X, Y, Z, E from panel
   #define FINE_MANUAL_MOVE 0.025    // (mm) Smallest manual move (< 0.1mm) applying to Z on most machines
   #if IS_ULTIPANEL
     #define MANUAL_E_MOVES_RELATIVE // Display extruder move distance rather than "position"
@@ -2123,7 +2124,9 @@
   #if ENABLED(DISTINCT_E_FACTORS)
     #define ADVANCE_K { 0.22 }    // (mm) Compression length per 1mm/s extruder speed, per extruder
   #else
-    #define ADVANCE_K 0.21       //morganiron (this is specific to my machine's setup) (mm) Compression length applying to all extruders
+    // CLAY: 0.21 was tuned for molten PLA and is meaningless for an auger. Start at 0 (feature stays
+    // compiled in so it can be tuned live with M900 K once flow is calibrated).
+    #define ADVANCE_K 0.0        // (mm) Compression length applying to all extruders
   #endif
   //#define ADVANCE_K_EXTRA       // Add a second linear advance constant, configurable with M900 L.
   //#define LA_DEBUG              // Print debug information to serial during operation. Disable for production use.

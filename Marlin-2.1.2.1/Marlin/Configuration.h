@@ -1197,7 +1197,9 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.16, 80.06, 399.5, 130 }   // E: NEMA17 pate - A CALIBRER  //morganiron (using the setup for A4988 drivers my estep was way up at 234.59, this is my new value after switching to TMC2209, )
+// E = auger, NEMA17 @ 1/16 (3200 steps/rev) -> 1440 gives 2.22mm E/rev (~5.3mm^3 clay/rev).
+// Starting point from the Tronxy Moore nozzle; calibrate by weighing (see README) as our auger differs.
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.16, 80.06, 399.5, 1440 }
                                                               //morganiron (Using a cube and calculating sizes, These values are pretty close
                                                               //morganiron I'm adjusting from the default 80, 80, 400 on x, y, z to 80.16, 80.06, 399.50)
 
