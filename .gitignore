@@ -6,3 +6,21 @@ Marlin-2.1.2.1/.pio/
 .DS_Store
 *:Zone.Identifier
 *.Zone.Identifier
+
+# Claude Code / agent tooling — local only
+CLAUDE.md
+CLAUDE.local.md
+.claude/
+.claude.local.md
+.claudeignore
+
+# Archives — vendor zips (e.g. Marlin-2.1.2.1.claymode.zip, ~98 MB) stay local.
+# NOTE: *.orca_printer bundles are zip files too, but keep the .orca_printer
+# extension, so they are NOT matched here and remain tracked. Keep it that way.
+*.zip
+
+# Third-party reference material — LOCAL ONLY, NEVER COMMIT.
+# Copyrighted works by their authors, kept here for private reading/searching.
+# This repo is PUBLIC: committing this folder would republish someone else's work.
+# Facts distilled from it belong in docs/ (own words + attribution), not here.
+reference/
